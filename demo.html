@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <title>上下滚动</title>
+  <script src="https://cdn.bootcss.com/jquery/1.8.3/jquery.min.js"></script>
+</head>
+
+<body>
+  <ul>
+    <li>upordown</li>
+    <li>upordown</li>
+    <li>upordown</li>
+    <li>upordown</li>
+    <li>upordown</li>
+    <li>upordown</li>
+    <li>upordown</li>
+    <li>upordown</li>
+    <li>upordown</li>
+    <li>upordown</li>
+    <li>upordown</li>
+    <li>upordown</li>
+    <li>upordown</li>
+    <li>upordown</li>
+    <li>upordown</li>
+    <li>upordown</li>
+    <li>upordown</li>
+    <li>upordown</li>
+    <li>upordown</li>
+    <li>upordown</li>
+    <li>upordown</li>
+    <li>upordown</li>
+    <li>upordown</li>
+    <li>upordown</li>
+    <li>upordown</li>
+    <li>upordown</li>
+    <li>upordown</li>
+    <li>upordown</li>
+    <li>upordown</li>
+    <li>upordown</li>
+    <li>upordown</li>
+    <li>upordown</li>
+    <li>upordown</li>
+    <li>upordown</li>
+    <li>upordown</li>
+    <li>upordown</li>
+    <li>upordown</li>
+    <li>upordown</li>
+    <li>upordown</li>
+    <li>upordown</li>
+    <li>upordown</li>
+    <li>upordown</li>
+    <li>upordown</li>
+    <li>upordown</li>
+    <li>upordown</li>
+    <li>upordown</li>
+    <li>upordown</li>
+    <li>upordown</li>
+    <li>upordown</li>
+    <li>upordown</li>
+  </ul>
+</body>
+<script>
+  $(document).ready(function () {
+
+
+
+    //获取当前的scrollTop和上一次的scrollTop对比 
+    //   function upordown() {
+    //     this.nowValue = 0;
+    //     this.lastValue = 0;
+    //     var _this = this;
+    //     //需要滚动触发的事件可作为参数传
+    //     (function scrollDri() {
+    //       $(window).scroll(function (e) {
+    //         _this.nowValue = $(this).scrollTop();
+    //         if (_this.lastValue <= _this.nowValue) {    //向下滚      // // scrollTop值变大则表示向下滚动
+    //           console.log("down")
+    //         }
+
+    //         else {      //上滚      // scrollTop值反之表示向上滚动
+    //           console.log("up")
+    //         }
+    //         setTimeout(function () { _this.lastValue = _this.nowValue; }, 0); 
+    //       });
+    //     })();
+    //   }
+    // });
+
+
+    //    优化
+    //避免scroll事件每次滚动都会触发处理事件，规定在一定间隔时间内才做
+    function upordown() {
+      var nowValue = 0;
+      var lastValue = 0;
+      var _this = this;
+      var scrollTimer = null;
+
+      return function scrollDri() {
+        nowValue = $(this).scrollTop();
+
+        if (scrollTimer) {
+          clearTimeout(scrollTimer); 
+        }
+        scrollTimer = setTimeout(function () {
+          if (lastValue <= nowValue) {    //向下滚  
+            console.log("down")
+          }
+
+          else {      //上滚  
+            console.log("up")
+          }
+          lastValue = nowValue;
+        }, 500);
+
+      };
+    }
+
+
+    $(window).on("scroll", upordown());
+  });
+
+</script>
+
+</html>
